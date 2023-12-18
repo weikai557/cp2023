@@ -1,4 +1,58 @@
-<h1>w2-w5</h1>
+<h1>w2</h1>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">// 包含標準輸出入程式庫的標頭文件
+#include &lt;stdio.h&gt;
+
+// 主函式
+int main() {
+    // Open a file to write displacement and velocity data
+    FILE *outputFile = fopen("motion_data.txt", "w");
+    if (!outputFile) {
+        fprintf(stderr, "Failed to create data file.\n");
+        return 1;
+    }
+
+    // Simulate motion for 10 seconds and calculate displacement and velocity, while writing data to the file
+    double x = 0.2;  // Initial displacement
+    double v = 0.0;  // Initial velocity
+    double dt = 0.01; // Time step
+    double t = 0.0;  // Time
+
+    while (t &lt;= 10.0) {
+        double acceleration = (-10.0 * x - 0.5 * v) / 1.0; // Modified system parameters here
+        v += acceleration * dt;
+        x += v * dt;
+
+        fprintf(outputFile, "%lf %lf %lf\n", t, x, v);
+
+        t += dt;
+    }
+
+    // Close the data file
+    fclose(outputFile);
+
+    // Start a Gnuplot process using popen
+    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
+    if (!gnuplotPipe) {
+        fprintf(stderr, "Failed to start Gnuplot.\n");
+        return 1;
+    }
+
+    // Use Gnuplot plotting commands, specify font and output as PNG
+    fprintf(gnuplotPipe, "set terminal pngcairo enhanced font 'default,10' size 800,400\n");
+    fprintf(gnuplotPipe, "set output './../images/motion_plot.png'\n");
+    fprintf(gnuplotPipe, "set title 'Displacement and Velocity vs. Time'\n");
+    fprintf(gnuplotPipe, "set xlabel 'Time (s)'\n");
+    fprintf(gnuplotPipe, "set ylabel 'Displacement (m)'\n");
+    fprintf(gnuplotPipe, "plot 'motion_data.txt' using 1:2 with lines lw 2 title 'Displacement', \
+                             'motion_data.txt' using 1:3 with lines lw 2 title 'Velocity'\n");
+
+    // Close the Gnuplot process
+    fprintf(gnuplotPipe, "exit\n");
+    pclose(gnuplotPipe);
+
+    return 0;
+}</pre>
+<p><img alt="" height="200" src="/images/motion_plot.png" width="400"/></p><h1>w2-w5</h1>
 <p>w2</p>
 <p><a href="https://nfuedu-my.sharepoint.com/:v:/g/personal/yen_nfu_edu_tw/EflMzDYwTjdIm2KJB7SCYkwB1_6UTQ4mzUdDx-bwN22E8A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0RpcmVjdCJ9fQ&amp;e=ZN0EPP">說明安裝 Apps, 如何設定網路, 查驗是否正確連網</a></p>
 <p><a href="https://nfuedu-my.sharepoint.com/:v:/g/personal/yen_nfu_edu_tw/Ef4xqA-zGsxFlnrsIq1WhRQBt7HalMhjXLb5hzLRmprYOQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0RpcmVjdCJ9fQ&amp;e=a7Oaxo">說明如何利用近端可攜系統執行 C 程式, 如何利用 ChatGPT 進行對話</a></p>
@@ -383,7 +437,9 @@ void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotatio
 <p>void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle) {<br/>gdPoint points[10];</p>
 <p>for (int i = 0; i &lt; 10; i++) {<br/>double angle = M_PI / 2 + i * 2 * M_PI / 10 + rotation_angle;<br/>int radius = (i % 2 == 0) ? size : size / 2;<br/>points[i].x = x + radius * cos(angle);<br/>points[i].y = y + radius * sin(angle);<br/>}</p>
 <p>// 用指定的颜色填充星星<br/>gdImageFilledPolygon(img, points, 10, color);<br/>}</p>
-<p><img alt="" height="211" src="/images/usa_flag.png" width="400"/></p><h1>w13</h1>
+<p><img alt="" height="211" src="/images/usa_flag.png" width="400"/></p>
+<h1>w12</h1>
+<p></p><h1>w13</h1>
 <p>雖然我還是不太會這個東西，但是我學會了用replit創倉儲，現在我遇到了一個困難，用進端ipv6好難。</p><h1>phython</h1>
 <p></p>
 <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">https://en.wikipedia.org/wiki/Python_(programming_language)</a></p>
