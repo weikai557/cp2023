@@ -131,7 +131,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='w2.html'>w2</a><li><a href='w2-w5.html'>w2-w5</a><li><a href='w5.html'>w5</a><li><a href='w6.html'>w6</a><li><a href='w10.html'>w10</a><li><a href='w12.html'>w12</a><li><a href='w13.html'>w13</a><li><a href='phython.html'>phython</a><li><a href='about.html'>about</a></li>
+                     <li><a href='w2.html'>w2</a><li><a href='w2-w5.html'>w2-w5</a><li><a href='w5.html'>w5</a><li><a href='w6.html'>w6</a><li><a href='w7.html'>w7</a><li><a href='w10.html'>w10</a><li><a href='w12.html'>w12</a><li><a href='w13.html'>w13</a><li><a href='phython.html'>phython</a><li><a href='about.html'>about</a></li>
                       </ul>
                 </nav>
               </div>
@@ -142,7 +142,7 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='w10.html'>Next</a> >> w10<br /><h1>w6</h1>
+    <div id="tipue_search_content">w5 << <a href='w5.html'>Previous</a> <a href='w7.html'>Next</a> >> w7<br /><h1>w6</h1>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">/ https://en.wikipedia.org/wiki/Flag_of_the_Republic_of_China
 // 內政部國旗參考資料: https://www.moi.gov.tw/cp.aspx?n=10621
 // cc roc_flag_in_gd.c -lgd -lm to link with gd and math library
@@ -265,91 +265,11 @@ void draw_white_sun(gdImagePtr img, int center_x, int center_y, int sun_radius, 
     gdImagePolygon(img, points, 4, color);
     }
 }</pre>
+<p>clear</p>
+<p>cd downloads</p>
+<p>cc gd_roc_flag.c</p>
+<p>./a.out</p>
 <p><img alt="" height="267" src="./../images/roc_flag_in_gd.png" width="400"/></p>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
-#include &lt;gd.h&gt;
-#include &lt;math.h&gt;
-
-void draw_chinese_flag(gdImagePtr img);
-
-int main() {
-    int width = 300; // 國旗寬度
-    int height = 200; // 國旗高度
-
-    gdImagePtr im = gdImageCreateTrueColor(width, height);
-    gdImageAlphaBlending(im, 0);
-
-    draw_chinese_flag(im);
-
-    FILE *outputFile = fopen("./../images/proc_flag.png", "wb");
-    if (outputFile == NULL) {
-        fprintf(stderr, "打开输出文件时出错。\n");
-        return 1;
-    }
-
-    gdImagePngEx(im, outputFile, 9);
-    fclose(outputFile);
-    gdImageDestroy(im);
-
-    return 0;
-}
-
-// 声明 draw_star 函数
-void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle);
-
-void draw_chinese_flag(gdImagePtr img) {
-    int width = gdImageSX(img);
-    int height = gdImageSY(img);
-    int red, yellow;
-
-    // 國旗顏色
-    red = gdImageColorAllocate(img, 255, 0, 0); // 紅色背景
-    yellow = gdImageColorAllocate(img, 255, 255, 0); // 黃色星星
-
-    // 畫紅色背景
-    gdImageFilledRectangle(img, 0, 0, width, height, red);
-
-    // 設置星星的大小和位置
-    int star_size = (int)(0.28 * height);
-    int star_x = (int)(0.165 * width);
-    int star_y = (int)(0.265 * height);
-
-    // 畫大星星
-    draw_star(img, star_x, star_y, star_size, yellow, 11.0);
-
-    // 繪製小星星，位置根據實際國旗比例計算
-    double radius = 0.15 * height;
-    double angle = 360 / 7 * M_PI / 179.0;
-    double rotation = -M_PI / 7.5;
-    int cx = (int)(0.32 * width);
-    int cy = (int)(0.27 * height);
-
-    for (int i = -1; i &lt; 3; i++) {
-        int x = (int)(cx + radius * cos(i * angle + rotation));
-        int y = (int)(cy + radius * sin(i * angle + rotation));
-        draw_star(img, x, y, 19, yellow, M_PI / 5.0);
-    }
-}
-
-void draw_star(gdImagePtr img, int x, int y, int size, int color, double rotation_angle) {
-    gdPoint points[10];
-
-    // 计算星形的五个外点和五个内点
-    double outer_radius = size / 2;
-    double inner_radius = size / 6;
-    double angle = M_PI / 5.0;
-
-    for (int i = 0; i &lt; 10; i++) {
-        double radius = (i % 2 == 0) ? outer_radius : inner_radius;
-        double theta = rotation_angle + i * angle;
-        points[i].x = x + radius * cos(theta);
-        points[i].y = y + radius * sin(theta);
-    }
-
-    // 使用 gdImageFilledPolygon 绘制星形
-    gdImageFilledPolygon(img, points, 10, color);
-}</pre>
-<p><img alt="" height="200" src="./../images/proc_flag.png" width="300"/></p>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
 #include &lt;gd.h&gt;
 #include &lt;math.h&gt;
@@ -438,68 +358,12 @@ points[i].y = y + radius * sin(angle);
 // 用指定的颜色填充星星
 gdImageFilledPolygon(img, points, 10, color);
 }</pre>
-<p></p>
+<p>clear</p>
+<p>cd downloads</p>
+<p>cc gd_usa_flag.c</p>
+<p>./a.out</p>
 <p><img alt="" height="211" src="./../images/usa_flag.png" width="400"/></p>
-<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">#include &lt;stdio.h&gt;
-#include &lt;gd.h&gt;
-#include &lt;math.h&gt;
-
-void draw_japan_flag(gdImagePtr img);
-void draw_red_sun(gdImagePtr img, int x, int y, int size, int color);
-
-int main() {
-    int originalWidth = 1200;
-    int originalHeight = (int)(originalWidth * 2.0 / 3.0);
-    gdImagePtr img = gdImageCreateTrueColor(originalWidth, originalHeight);
-    gdImageAlphaBlending(img, 0);
-
-    draw_japan_flag(img);
-
-    // 新的宽度和高度以适应 "images" 文件夹
-    int newWidth = 600;
-    int newHeight = (int)(newWidth * 2.0 / 3.0);
-
-    // 创建新图像并进行缩放
-    gdImagePtr resizedImage = gdImageCreateTrueColor(newWidth, newHeight);
-    gdImageAlphaBlending(resizedImage, 0);
-    gdImageCopyResampled(resizedImage, img, 0, 0, 0, 0, newWidth, newHeight, originalWidth, originalHeight);
-
-  FILE *outputFile = fopen("./../images/japan_flag.png", "wb");
-    if (outputFile == NULL) {
-        fprintf(stderr, "Error opening the output file.\n");
-        return 1;
-    }
-    gdImagePng(resizedImage, outputFile);
-    fclose(outputFile);
-    gdImageDestroy(img);
-    gdImageDestroy(resizedImage);
-
-    return 0;
-}
-
-void draw_japan_flag(gdImagePtr img) {
-    int width = gdImageSX(img);
-    int height = gdImageSY(img);
-
-    // 创建一个白色背景
-    int white = gdImageColorAllocate(img, 255, 255, 255);
-    gdImageFilledRectangle(img, 0, 0, width - 1, height - 1, white);
-
-    // 绘制红色圆圈（太阳）
-    int red = gdImageColorAllocate(img, 255, 0, 0);
-    int center_x = width / 2;
-    int center_y = height / 2;
-    int radius = (int)((width * 2) / 3);
-    draw_red_sun(img, center_x, center_y, radius, red);
-}
-
-void draw_red_sun(gdImagePtr img, int x, int y, int size, int color) {
-  // 減小 size 的值,例如將他的值減半
-  size = size / 2;
-    gdImageArc(img, x, y, size, size, 0, 360, color);
-    gdImageFillToBorder(img, x, y, color, color);
-}</pre>
-<p><img alt="" height="233" src="./../images/japan_flag.png" width="350"/></p><br />w5 << <a href='w5.html'>Previous</a> <a href='w10.html'>Next</a> >> w10</div>
+<p></p><br />w5 << <a href='w5.html'>Previous</a> <a href='w7.html'>Next</a> >> w7</div>
         
     <!-- footer -->
       <div class="container">
